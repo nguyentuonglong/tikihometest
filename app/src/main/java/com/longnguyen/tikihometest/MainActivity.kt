@@ -26,15 +26,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchKeyWord() {
         compositeDisposable.addAll(
-            apiService.getKeywords()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    adapter.updateData(it)
-                }, {
-                    Timber.e(it)
-                })
+                apiService.getKeywords()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            adapter.updateData(it)
+                        }, {
+                            Timber.e(it)
+                        })
         )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        compositeDisposable.clear()
     }
 
     private fun init() {
