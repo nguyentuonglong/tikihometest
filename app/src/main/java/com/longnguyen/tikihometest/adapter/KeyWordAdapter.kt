@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.longnguyen.tikihometest.R
+import com.longnguyen.tikihometest.util.StringUtil
 import kotlinx.android.synthetic.main.item_keyword.view.*
 import java.util.*
 
@@ -40,19 +41,7 @@ class KeyWordAdapter : RecyclerView.Adapter<KeyWordAdapter.ViewHolder>() {
             val rnd = Random()
             val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
             (background as GradientDrawable).setColor(color)
-            itemView.keyword_name.text = handleString(item)
-        }
-
-        private fun handleString(keyword: String): String {
-            val spitedString = keyword.split(" ").toMutableList()
-            val count = spitedString.size
-            return if (count > 1) {
-                val centerIndex = (count / 2)
-                spitedString.add(centerIndex, "\n")
-                spitedString.joinToString(separator = " ")
-            } else {
-                keyword
-            }
+            itemView.keyword_name.text = StringUtil.handleKeywords(item)
         }
     }
 }
